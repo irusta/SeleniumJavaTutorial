@@ -1,0 +1,110 @@
+Curso de Automatizacion en Java
+--------------------------------
+Capitulo2
+---------
+Patron de DiseÃ±o ->Page Object -Una clase por cada pagina que tiene nuestro sistema y darle a esas clases la responsabilidad de realizar 
+las cosas.
+Nuestro PageLogin se va encargar de ejecutar cosas en nuestro Webdriver dentro de su clase, le tenemos que pasar como para 
+ese Webdriver.
+
+Capitulo3
+----------
+Hay gente que dice que los "Assert" deberian estar al lado de los test, pero el los pone en otra clase diferente.
+Aunque tenga más lineas de código es que sea facilmente legigle todo y mantenible.
+
+¿Que pasa si los findElement los tengo que utilizar en muchos metodos? Crearlos en el constructor.
+Los findElement devuelven webElement´s y si el webElement al momento de instanciar no existe el programa o no esta visible me da una excepcion y corta el programa, es por eso que se declaran al principio del pageObject pero se definen despues de crear el constructor.
+(Que pasa si al principio del programa genero todos los pageObject/webElement que necesito.)
+Es buena idea definir
+
+Los webElement son parte de los PageObject y los field.., botoo etc som parte de los webElement.
+
+https://github.com/Draculinio/SeleniumJavaTutorial/blob/master/src/test/java/pages/PageReservation.java
+
+
+Capitulo4--Dropdown
+---------
+Lo primero cuando voy a empezar un test genero el metodo del test que voy a hacer y luego empiezo a programar (ya tengo la estructura).
+Hay 3 formas de seleccionar un DropDown:
+ *Por el valor <option value="1">1 </option>, selectByVisibleText()
+ *Por texto visible <option value="1">1 </option>, selectByIndex
+ *Por indice <option value="1">1 </option>, teniendo en cuenta 
+siempre que el indice empieza por 0, selectByValue
+ 
+ 
+ Capitulo5- Implicit wait
+ --------
+ Hasta ahora estabamos esperando siempre 4 segundos, pero a veces puede que estemos perdiendo segundos porque la pagina se carga antes. Si tenemos muchos test puede que perdamos mucho tiempo.
+ implicitWati(10, TimeUnit.SECONDS), le estamos diciendo que como maximo espere 10 segundos cuando paseen 10 segundos de un Timeout pero si la pagina se carga en 2 segundos el implicitWait deja de operar y sigue con la ejeución del programa.
+ teniendo en cuenta que cada 0,5 segundos comprueba si los elementos se han cargado.
+ 
+ De esta forma tabiem podemos controlar que si nos dan un Requerimiento de que si una pagina tarda más de 10 segundos en carga se considere un error. La idea es cambiar los Thread.sleep(seconds*1000); por los implicitWait
+
+Espera a que cargue el DOM para poder empezar a iteractuar con la pagina.
+
+Capitulo6- Explicit wait
+--------
+Espera hasta que se cumpla una condicion "n" durante un tiempo y si eso no sucede va a dar un timeout y va a fallar.
+Muchas veces no necesitas que aparezca todo el DOM sino que solo exista un elemento particular y en esos casos nos interesa utilizar este tipo de waits, por ejemplo esperar a que el elemento exista y que sea clickeable o poder hacer algo con el elemento.
+
+Se suele utilizar para dar tiempo que se cargue un elemento que vamos a utilizar.
+
+Capitulo7- TestNG Asserts
+-------------------------
+Los assert son comolos puntos de verificación que se diferencian que en si no lo cumple para el test y da error, pasando a ejecutar otra cosa.
+*True & False
+Assert.assertTrue(condicion), la condición debe ser un booleano , si es true, entonces true, si es false, entonces false.
+Assert.assertFalse(condicion): la condición debe ser un booleano, si es false, es true, entonces si es true es false.
+
+*Eguals
+Assert.assertEgual(Condicion1, condicion2), compara ambas condiciones si son iguales entonces devuelve Treu.
+Assert.assetNotEguals(condicion1,condicion2),compara ambas condiciones si no son iguales, devuelve True
+Este metodo tiene sobrecarga para todo.
+
+*Null
+Assert.assertNull(objeto), True si es null.
+Assert.assertNoNull(objeto), true si no es null
+
+*Mismo Objeto
+Assert.assertSame(objeto1,objeto2), true si apuntan al mismo objeto.
+Assert.assertNotSame(objeto1,objeto2), true si no apuntal al mismo objeto.
+
+*Faill
+Assert.fail(): falla el test.
+
+Capitulo8:
+---------
+Se crea un nuevo projecto Maven pero sin dependencias de selenium para realizar pruebas con los distintos tipos de Asserts. Se observa que el nombre que doy en el Artifactory Name es el que tiene el proyecto en eclipse.
+
+Capitulo9:
+----------
+En este capitulo se agregan comentarios en los Asserts y la importancia de hacerlo en un marco de trabajo de equipo.
+Y ser mas descriptivos cuando un test falla, para que todos sepamos porque ha fallado el test, ya que cuando un test falla puede ser ser por muchos motivos y hay que entender porque esta fallando el test.
+
+Assert.assertTrue(numeroUno == numeroDos, "El nro. no es verdadero"+String.valuesOf(numeroUno)
+
+pagina para automatizar http://automationpractice.com/index.php
+ 
+
+Capitulo10:
+----------
+Se ven casos practicos AssertNull y AsserNotNull, se utilizan a nivel de unit Test y no a nivel de selenium.
+
+Capitulo11:
+----------
+Se ven caaos practicos AssertSame y AssertNotSame en este caso de si 2 objectos son iguales (que apunten al mismo lugar).
+
+Capitulo12:
+-----------
+Find Elements, si queremos encontrar un elemento utilizamos findElement y lo que hace es devolver un elemento de tipo WebElement (un elemento que despues podemos hacer cualquier cosa, como cliclear, borrar, etc....
+
+Por ejemplos nos dicen que tenemos que verificar que en nuestra pagina de inicio existen 5 elementos de tipo input.
+
+Capitulo13:
+-----------
+Screenshots
+
+
+
+  
+
